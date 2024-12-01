@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { data } from "../utils/data";
 import { useState } from "react";
+import { DietLabels } from "../components/DietLabels";
 
 // console.log(data.hits[0].recipe);
 
@@ -39,16 +40,31 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
   return (
     <Center minHeight="100vh" flexDir="column">
       <Stack spacing={2}>
-        <Heading mt={4} mb={4} size={["xl", "2xl", "3xl"]}>
-          Your Recipe App
-        </Heading>
-
-        <Input
-          type="text"
-          onChange={handleSearchChange}
-          variant={"filled"}
-          placeholder="Search for recipe"
-        ></Input>
+        <Flex
+          flexDir={"column"}
+          bgColor={"teal"}
+          w={"100vw"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Heading mt={4} mb={[4, 8]} size={["xl", "3xl"]} color={"white"}>
+            Winc Recipe Checker
+          </Heading>
+          <Input
+            type="text"
+            onChange={handleSearchChange}
+            variant={"filled"}
+            focusBorderColor="blue.500"
+            boxShadow={"lg"}
+            placeholder="Search for recipe"
+            width={["xs", "lg"]}
+            mb={8}
+            borderRadius={20}
+            _focus={{
+              bgColor: "gray.200", // Achtergrondkleur bij focus
+            }}
+          ></Input>
+        </Flex>
       </Stack>
 
       <Flex
@@ -63,110 +79,86 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
         {matchedRecipes.map((hit) => (
           <Card
             key={hit.recipe.label}
-            width={["xl", "md", "xs"]}
-            height={"36rem"}
-            bgColor={"white.600"}
+            width={["xs"]}
+            height={["md"]}
+            bgColor={"white"}
             borderRadius={"2xl"}
+            boxShadow={["lg"]}
             cursor={"pointer"}
             onClick={() => onSelectRecipe(hit.recipe)}
           >
             <CardBody p={0}>
-              <Flex flexDir={"column"}>
-                <Image
-                  src={hit.recipe.image}
-                  borderTopRadius={"2xl"}
-                  w={"100%"}
-                  h={"15rem"}
-                  objectFit={"cover"}
-                />
-
+              <Image
+                src={hit.recipe.image}
+                borderTopRadius={"2xl"}
+                w={"100%"}
+                h={"12rem"}
+                objectFit={"cover"}
+              />
+              <Stack spacing={2} p={2}>
                 <Flex
-                  gap={2}
                   flexDir={"column"}
                   justifyContent={"center"}
                   alignItems={"center"}
                 >
-                  {hit.recipe.mealType.map((label) => (
-                    <Text key={label} mt={2} fontSize={"xl"} color={"gray.600"}>
-                      {label}
-                    </Text>
-                  ))}
+                  <Text fontSize={["xl"]} color={"blackAlpha.600"}>
+                    {hit.recipe.mealType}
+                  </Text>
+                  <Heading
+                    as={"h1"}
+                    size={["md"]}
+                    textAlign={"center"}
+                    pl={2}
+                    pr={2}
+                  >
+                    {hit.recipe.label}
+                  </Heading>
+                  <Flex
+                    gap={2}
+                    flexDir={"row"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                  >
+                    {hit.recipe.healthLabels
+                      .filter(
+                        (healtLabel) =>
+                          healtLabel === "Vegan" || healtLabel === "Vegetarian"
+                      )
+                      .map((healtLabel) => (
+                        <Tag
+                          key={healtLabel}
+                          mt={2}
+                          bgColor={"purple.300"}
+                          size={["md"]}
+                        >
+                          {healtLabel}
+                        </Tag>
+                      ))}
+                  </Flex>
                 </Flex>
 
-                <Heading
-                  as={"h1"}
-                  size={"md"}
-                  mt={2}
-                  pl={2}
-                  pr={2}
-                  textAlign={"center"}
+                <Flex
+                  flexDir={"column"}
+                  gap={2}
+                  justifyContent={"center"}
+                  alignItems={"center"}
                 >
-                  {hit.recipe.label}
-                </Heading>
-              </Flex>
-
-              <Flex
-                gap={2}
-                flexDir={"row"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                {hit.recipe.healthLabels
-                  .filter(
-                    (healtLabel) =>
-                      healtLabel === "Vegan" || healtLabel === "Vegetarian"
-                  )
-                  .map((healtLabel) => (
-                    <Tag key={healtLabel} mt={2} bgColor={"purple.600"}>
-                      {healtLabel}
-                    </Tag>
-                  ))}
-              </Flex>
-
-              <Flex
-                gap={2}
-                flexDir={"row"}
-                wrap={"wrap"}
-                justifyContent={"center"}
-                alignItems={"flex-start"}
-              >
-                {hit.recipe.dietLabels.map((label) => (
-                  <Tag key={label} bgColor={"green.200"} mt={2}>
-                    {label}
-                  </Tag>
-                ))}
-              </Flex>
-
-              <Flex
-                gap={2}
-                flexDir={"column"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                {hit.recipe.dishType.map((label) => (
-                  <Text key={label} mt={2} fontSize={"xl"}>
-                    Dish: {label}
-                  </Text>
-                ))}
-              </Flex>
-
-              <Text fontSize={"lg"} mt={2} textAlign={"center"}>
-                Cautions:
-              </Text>
-
-              <Flex
-                gap={2}
-                flexDir={"row"}
-                wrap={"wrap"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                {hit.recipe.cautions.map((label) => (
-                  <Tag key={label} bgColor={"red.200"} mt={2}>
-                    {label}
-                  </Tag>
-                ))}
-              </Flex>
+                  <DietLabels recipe={hit.recipe} display={"none"} />
+                  <Text fontSize={["xl"]}>{hit.recipe.dishType}</Text>
+                  <Flex
+                    gap={2}
+                    wrap={"wrap"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                  >
+                    {hit.recipe.cautions.map((label) => (
+                      <Tag key={label} bgColor={"red.200"} size={["md"]}>
+                        {label}
+                      </Tag>
+                    ))}
+                  </Flex>
+                </Flex>
+              </Stack>
             </CardBody>
           </Card>
         ))}

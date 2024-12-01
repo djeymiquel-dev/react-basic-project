@@ -22,17 +22,13 @@ import { Sodium } from "../components/Sodium";
 
 export const RecipePage = ({ recipe, onBack }) => {
   return (
-    <Center minHeight={"100vh"} flexDir={"column"}>
-      <Box width={["sm", "lg", "2xl"]} m={0} border={"solid"}>
-        <Heading as={"h1"} size={"2xl"} textAlign={"center"} mt={4}>
-          Recipe
-        </Heading>
+    <Center minHeight={"100vh"} flexDir={"column"} m={0}>
+      <Box width={["sm", "lg", "2xl"]} bgColor={"white"}>
         <Image
           src={recipe.image}
           w={"100%"}
-          height={250}
+          height={"12rem"}
           objectFit={"cover"}
-          mt={4}
         />
 
         {/* main flexbox .............................. */}
@@ -70,9 +66,18 @@ export const RecipePage = ({ recipe, onBack }) => {
             >
               Servings: {recipe.yield}
             </Text>
-            <UnorderedList mt={2} color={"blackAlpha.600"}>
-              {recipe.ingredientLines.map((element, index) => (
-                <ListItem key={index}>{element}</ListItem>
+
+            <Text
+              mt={2}
+              fontSize={"lg"}
+              color={"blackAlpha.700"}
+              fontWeight={"bold"}
+            >
+              Ingredients:
+            </Text>
+            <UnorderedList color={"blackAlpha.600"}>
+              {recipe.ingredientLines.map((ingredients) => (
+                <ListItem key={ingredients}>{ingredients}</ListItem>
               ))}
             </UnorderedList>
           </Flex>
@@ -87,11 +92,15 @@ export const RecipePage = ({ recipe, onBack }) => {
             justifyContent={"flex-start"}
             mt={4}
           >
-            <Stack spacing={3}>
+            <Stack spacing={4}>
               <HealthLabels recipe={recipe} />
               <Flex flexDir={"column"}>
-                <DietLabels recipe={recipe} />
-                <Cautions recipe={recipe} />
+                {recipe.dietLabels && recipe.dietLabels.length > 0 && (
+                  <DietLabels recipe={recipe} />
+                )}
+                {recipe.cautions && recipe.cautions.length > 0 && (
+                  <Cautions recipe={recipe} />
+                )}
                 <Text
                   fontSize={"lg"}
                   mt={4}

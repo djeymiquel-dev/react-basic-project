@@ -1,15 +1,20 @@
 import { Box, Text, Flex, Tag } from "@chakra-ui/react";
 
-export const HealthLabels = ({ recipe }) => {
+export const HealthLabels = ({ recipe, ...props }) => {
   return (
     <Box>
-      <Text fontSize={"lg"} color={"blackAlpha.700"} fontWeight={"bold"}>
+      <Text
+        fontSize={"lg"}
+        color={"blackAlpha.700"}
+        fontWeight={"bold"}
+        {...props}
+      >
         Healt labels:
       </Text>
       <Flex gap={2} wrap={"wrap"} mt={2}>
-        {recipe.healthLabels.map((label, index) => (
-          <Tag key={index} bgColor={"purple.300"}>
-            {label}
+        {recipe.healthLabels.map((healthLabel) => (
+          <Tag key={healthLabel} bgColor={"purple.300"}>
+            {healthLabel}
           </Tag>
         ))}
       </Flex>
