@@ -47,7 +47,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Heading mt={4} mb={[4, 8]} size={["xl", "3xl"]} color={"white"}>
+          <Heading mt={4} mb={8} size={["xl", "3xl"]} color={"white"}>
             Winc Recipe Checker
           </Heading>
 

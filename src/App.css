@@ -10,7 +10,7 @@ html {
 
 .main-container {
   /* background-color: cadetblue; */
-  background-color: whitesmoke;
+  background-color: hsl(0, 0%, 96%);
 }
 
 .recipe-page {

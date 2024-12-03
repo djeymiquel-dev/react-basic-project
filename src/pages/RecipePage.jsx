@@ -43,14 +43,12 @@ export const RecipePage = ({ recipe, onBack }) => {
           objectFit={"cover"}
         />
 
-        {/* main flexbox .............................. */}
         <Flex
           flexDir={["column", "row"]}
           alignItems={"flex-start"}
           p={4}
           gap={2}
         >
-          {/* first flexbox part ............................... */}
           <Flex flex={1} flexDir={"column"}>
             <Text color={"blackAlpha.600"} fontSize={["xl", "2xl"]}>
               {recipe.mealType}
@@ -75,7 +73,6 @@ export const RecipePage = ({ recipe, onBack }) => {
             </UnorderedList>
           </Flex>
 
-          {/* Tags Section ................................. */}
           <Flex
             flex={1}
             wrap={"wrap"}
