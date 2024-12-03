@@ -1,24 +1,25 @@
-import { Box, Text, Flex, Tag } from "@chakra-ui/react";
+import { Box, Text, Flex, Tag, Stack } from "@chakra-ui/react";
 
-export const Cautions = ({ recipe, ...props }) => {
+export const Cautions = ({ recipe, displayNone, ...props }) => {
   return (
     <Box>
-      <Text
-        fontSize={"lg"}
-        fontWeight={"bold"}
-        color={"blackAlpha.700"}
-        mt={4}
-        {...props}
-      >
-        Cautions:
-      </Text>
-      <Flex gap={2} wrap={"wrap"} mt={2}>
-        {recipe.cautions.map((label) => (
-          <Tag key={label} bgColor={"red.200"} size={["md"]}>
-            {label}
-          </Tag>
-        ))}
-      </Flex>
+      <Stack spacing={2}>
+        <Text
+          fontSize={"lg"}
+          fontWeight={"semibold"}
+          color={"blackAlpha.700"}
+          display={displayNone}
+        >
+          Cautions:
+        </Text>
+        <Flex gap={2} wrap={"wrap"} {...props}>
+          {recipe.cautions.map((label) => (
+            <Tag key={label} bgColor={"red.200"} size={["sm"]}>
+              {label}
+            </Tag>
+          ))}
+        </Flex>
+      </Stack>
     </Box>
   );
 };

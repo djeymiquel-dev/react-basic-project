@@ -1,9 +1,9 @@
 import {
   Box,
-  Button,
   Center,
   Flex,
   Heading,
+  IconButton,
   Image,
   ListItem,
   Stack,
@@ -13,17 +13,29 @@ import {
 import { Cautions } from "../components/Cautions";
 import { DietLabels } from "../components/DietLabels";
 import { HealthLabels } from "../components/HealthLabels";
-import { Kcal } from "../components/Kcal";
-import { Fat } from "../components/Fat";
-import { Carbs } from "../components/Carbs";
-import { Protein } from "../components/Protein";
-import { Cholesterol } from "../components/Cholesterol";
-import { Sodium } from "../components/Sodium";
+import { NutrientsTable } from "../components/NutrientsTable";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const RecipePage = ({ recipe, onBack }) => {
   return (
     <Center minHeight={"100vh"} flexDir={"column"} m={0}>
-      <Box width={["sm", "lg", "2xl"]} bgColor={"white"}>
+      <Box width={["sm", "md", "2xl"]} bgColor={"white"}>
+        <Flex
+          flexDir={"row"}
+          justifyContent={"flex-start"}
+          alignItems={"flex-start"}
+          pl={[4]}
+          mt={8}
+          mb={8}
+        >
+          <IconButton
+            colorScheme="teal"
+            icon={<ArrowBackIcon />}
+            onClick={onBack}
+            w={10}
+          />
+        </Flex>
+
         <Image
           src={recipe.image}
           w={"100%"}
@@ -35,44 +47,25 @@ export const RecipePage = ({ recipe, onBack }) => {
         <Flex
           flexDir={["column", "row"]}
           alignItems={"flex-start"}
-          justifyContent={"space-evenly"}
+          p={4}
+          gap={2}
         >
           {/* first flexbox part ............................... */}
-          <Flex flex={1} flexDir={"column"} p={8}>
-            <Text color={"blackAlpha.600"} fontSize={["2xl", "3xl"]}>
+          <Flex flex={1} flexDir={"column"}>
+            <Text color={"blackAlpha.600"} fontSize={["xl", "2xl"]}>
               {recipe.mealType}
             </Text>
-            <Heading
-              as={"h1"}
-              size={["md", "xl"]}
-              color={"blackAlpha.800"}
-              mt={2}
-            >
+            <Heading as={"h1"} size={["lg", "lg"]} color={"blackAlpha.800"}>
               {recipe.label}
             </Heading>
-            <Text
-              mt={2}
-              fontSize={"lg"}
-              color={"blackAlpha.700"}
-              fontWeight={"bold"}
-            >
+            <Text fontSize={"lg"} color={"blackAlpha.700"} fontWeight={"bold"}>
               Total cooking time: {recipe.totalTime} Minutes
             </Text>
-            <Text
-              mt={2}
-              fontSize={"lg"}
-              color={"blackAlpha.700"}
-              fontWeight={"bold"}
-            >
+            <Text fontSize={"lg"} color={"blackAlpha.700"} fontWeight={"bold"}>
               Servings: {recipe.yield}
             </Text>
 
-            <Text
-              mt={2}
-              fontSize={"lg"}
-              color={"blackAlpha.700"}
-              fontWeight={"bold"}
-            >
+            <Text fontSize={"lg"} color={"blackAlpha.700"} fontWeight={"bold"}>
               Ingredients:
             </Text>
             <UnorderedList color={"blackAlpha.600"}>
@@ -87,14 +80,12 @@ export const RecipePage = ({ recipe, onBack }) => {
             flex={1}
             wrap={"wrap"}
             gap={2}
-            p={8}
             flexDir={["column", "row"]}
             justifyContent={"flex-start"}
-            mt={4}
           >
-            <Stack spacing={4}>
+            <Stack spacing={2}>
               <HealthLabels recipe={recipe} />
-              <Flex flexDir={"column"}>
+              <Flex flexDir={"column"} gap={2}>
                 {recipe.dietLabels && recipe.dietLabels.length > 0 && (
                   <DietLabels recipe={recipe} />
                 )}
@@ -103,33 +94,16 @@ export const RecipePage = ({ recipe, onBack }) => {
                 )}
                 <Text
                   fontSize={"lg"}
-                  mt={4}
                   fontWeight={"bold"}
                   color={"blackAlpha.700"}
                 >
                   Total nutrients:
                 </Text>
-                <Flex flexDir={"row"} gap={4} wrap={"wrap"}>
-                  <Kcal recipe={recipe} />
-                  <Fat recipe={recipe} />
-                  <Carbs recipe={recipe} />
-                  <Protein recipe={recipe} />
-                  <Cholesterol recipe={recipe} />
-                  <Sodium recipe={recipe} />
-                </Flex>
+
+                <NutrientsTable recipe={recipe} />
               </Flex>
             </Stack>
           </Flex>
-        </Flex>
-        <Flex flexDir={"row"} mt={8} mb={4} justifyContent={"center"}>
-          <Button
-            colorScheme="teal"
-            size={"md"}
-            onClick={onBack}
-            alignSelf={"center"}
-          >
-            Back to overview
-          </Button>
         </Flex>
       </Box>
     </Center>

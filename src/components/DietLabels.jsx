@@ -1,24 +1,25 @@
-import { Box, Text, Flex, Tag } from "@chakra-ui/react";
+import { Box, Text, Flex, Tag, Stack } from "@chakra-ui/react";
 
-export const DietLabels = ({ recipe, ...props }) => {
+export const DietLabels = ({ recipe, displayNone, ...props }) => {
   return (
     <Box>
-      <Text
-        fontSize={"lg"}
-        fontWeight={"bold"}
-        color={"blackAlpha.700"}
-        mt={4}
-        {...props}
-      >
-        Diet labels:
-      </Text>
-      <Flex gap={2} wrap={"wrap"} mt={2}>
-        {recipe.dietLabels.map((dietLabel) => (
-          <Tag key={dietLabel} bgColor={"green.200"} size={["md"]}>
-            {dietLabel}
-          </Tag>
-        ))}
-      </Flex>
+      <Stack spacing={2}>
+        <Text
+          fontSize={"lg"}
+          fontWeight={"semibold"}
+          color={"blackAlpha.700"}
+          display={displayNone}
+        >
+          Diet labels:
+        </Text>
+        <Flex gap={2} wrap={"wrap"} {...props}>
+          {recipe.dietLabels.map((dietLabel) => (
+            <Tag key={dietLabel} bgColor={"green.200"} size={["sm"]}>
+              {dietLabel}
+            </Tag>
+          ))}
+        </Flex>
+      </Stack>
     </Box>
   );
 };
