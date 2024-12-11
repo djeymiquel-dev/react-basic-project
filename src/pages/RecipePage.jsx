@@ -10,6 +10,7 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Cautions } from "../components/Cautions";
 import { DietLabels } from "../components/DietLabels";
 import { HealthLabels } from "../components/HealthLabels";
@@ -17,9 +18,16 @@ import { NutrientsTable } from "../components/NutrientsTable";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const RecipePage = ({ recipe, onBack }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [recipe]);
   return (
     <Center minHeight={"100vh"} flexDir={"column"} m={0}>
-      <Box width={["sm", "md", "2xl"]} bgColor={"white"}>
+      <Box
+        width={["base", "lg", "2xl"]}
+        bgColor={"white"}
+        minHeight={"inherit"}
+      >
         <Flex
           flexDir={"row"}
           justifyContent={"flex-start"}
@@ -47,13 +55,13 @@ export const RecipePage = ({ recipe, onBack }) => {
           flexDir={["column", "row"]}
           alignItems={"flex-start"}
           p={4}
-          gap={2}
+          gap={8}
         >
           <Flex flex={1} flexDir={"column"}>
             <Text color={"blackAlpha.600"} fontSize={["xl", "2xl"]}>
               {recipe.mealType}
             </Text>
-            <Heading as={"h1"} size={["lg", "lg"]} color={"blackAlpha.800"}>
+            <Heading as={"h1"} size={["lg", "xl"]} color={"blackAlpha.800"}>
               {recipe.label}
             </Heading>
             <Text fontSize={"lg"} color={"blackAlpha.700"} fontWeight={"bold"}>

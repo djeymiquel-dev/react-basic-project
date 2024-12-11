@@ -14,8 +14,13 @@ export const Cautions = ({ recipe, displayNone, ...props }) => {
         </Text>
         <Flex gap={2} wrap={"wrap"} {...props}>
           {recipe.cautions.map((label) => (
-            <Tag key={label} bgColor={"red.200"} size={["sm"]}>
-              {label}
+            <Tag
+              key={label}
+              bgColor={"red.200"}
+              size={["md"]}
+              color={"blackAlpha.600"}
+            >
+              {label.toUpperCase()}
             </Tag>
           ))}
         </Flex>

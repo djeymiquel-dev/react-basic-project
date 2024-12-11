@@ -14,8 +14,13 @@ export const HealthLabels = ({ recipe, ...props }) => {
         </Text>
         <Flex gap={2} wrap={"wrap"}>
           {recipe.healthLabels.map((healthLabel) => (
-            <Tag key={healthLabel} bgColor={"purple.300"} size={["sm"]}>
-              {healthLabel}
+            <Tag
+              key={healthLabel}
+              bgColor={"purple.300"}
+              size={["md"]}
+              color={"blackAlpha.600"}
+            >
+              {healthLabel.toUpperCase()}
             </Tag>
           ))}
         </Flex>

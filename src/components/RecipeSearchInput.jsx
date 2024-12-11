@@ -16,7 +16,7 @@ export const RecipeSearchInput = ({ clickFn }) => {
           focusBorderColor="blue.500"
           boxShadow={"lg"}
           placeholder="Search for recipe"
-          width={["sx", "md"]}
+          width={"clamp(16rem, 80vw, 24rem)"}
           mb={8}
           borderRadius={20}
           _focus={{
